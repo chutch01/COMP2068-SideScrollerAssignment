@@ -15,14 +15,14 @@
         }
         //private methods++++++++++++++++++++++++++
         private _reset() {
-            this.x = Math.floor(Math.random() * 640);
-            this.y = -this.height;
-            this._dy = Math.floor(Math.random() * 5) + 5;
-            this._dx = Math.floor(Math.random() * 4) - 2;
+            this.y = Math.floor(Math.random() * 640);
+            this.x = -this.height;
+            this._dx = Math.floor(Math.random() * 5) + 5;
+            this._dy = Math.floor(Math.random() * 4) - 2;
             
         }
         private _checkbounds() {
-            if (this.y > 480 + this.height) {
+            if (this.x > 480 + this.height) {
                 this._reset();
 
             }

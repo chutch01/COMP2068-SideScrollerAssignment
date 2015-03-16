@@ -5,7 +5,7 @@
         //constructor ++++++++++++++++++++++++++++
         constructor() {
             super("island");
-            this._dy = 5;
+            this._dx = -5;
 
             this.soundString = "yay";
 
@@ -20,7 +20,7 @@
             this.y = -this.height;
         }
         private _checkbounds() {
-            if (this.y > 480 + this.height) {
+            if (this.y > 480 + this.width) {
                 this._reset();
 
             }
@@ -30,7 +30,7 @@
 
         //public methods+++++++++++++++++++++++++++
         public update() {
-            this.y += this._dy;
+            this.x += this._dx;
             this._checkbounds();
             
 

@@ -14,12 +14,12 @@
             this.regX = this.getBounds().width * 0.5;
             this.regY = this.getBounds().height * 0.5;
 
-            this.y = 430;
+            this.x = 100;
             createjs.Sound.play("engine", { loop: -1 });//this is the sound
         }
         //public methods+++++++++++++++++++++++++++
         public update() {
-            this.x = stage.mouseX;
+            this.y = stage.mouseY;
         }
     }
 } 
