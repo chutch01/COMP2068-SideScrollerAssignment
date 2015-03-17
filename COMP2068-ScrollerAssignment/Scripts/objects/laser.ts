@@ -1,39 +1,31 @@
-﻿module objects {
+﻿/*
+ * this is the laser that the player fires from the character it will be removed if it collides with something
+ */
+module objects {
     export class Laser extends objects.GameObject {
 
 
         //constructor ++++++++++++++++++++++++++++
-        constructor() {
+        constructor(x: number, y: number) {
             super("laser");
-            this._dx = 10;
+            this.x = x;
+            this.y = y;
+            this._dx = 7;
 
-            this.soundString = "laser_sound";
-
-
-            //set island to start at random x
-            this._reset();
+            this.soundString = "laser_sound"; 
 
         }
-        //private methods++++++++++++++++++++++++++
-        private _reset() {
-            this.y = stage.mouseY;
-        }
-        private _checkbounds() {
-            if (this.x <= 480 + this.width) {
-                this._reset();
-
-            }
-        }
-
-
 
         //public methods+++++++++++++++++++++++++++
         public update() {
+
+            if (this.x = 680 + this.width) {
+                stage.removeChild(this);
+            }
             this.x += this._dx;
-            this._checkbounds();
-
-
-
+        }
+        public hit() {
+            stage.removeChild(this);
         }
     }
 }  

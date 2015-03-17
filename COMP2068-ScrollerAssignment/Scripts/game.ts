@@ -9,7 +9,6 @@
 /// <reference path="objects/gameobject.ts" />
 /// <reference path="objects/background.ts" />
 /// <reference path="typings/stats/stats.d.ts" />
-/// <reference path="objects/gameobject.ts" />
 
 
 
@@ -27,7 +26,6 @@ var samus: objects.Samus;
 var ball: objects.Ball;
 var background: objects.Background;
 var enemy: objects.Enemy[] = [];
-var laser: objects.Laser[] = [];
 
 //game variables
 
@@ -39,10 +37,12 @@ var manifest = [
     { id: "ball", src: "assets/images/ball.png" },
     { id: "background", src: "assets/images/hallway.png" },
     { id: "samus", src: "assets/images/samus.png" },
+    { id: "laser", src: "assets/images/laser.png" },
     { id: "brinstar", src: "assets/audio/brinstar.mp3" },
     { id: "explosion", src: "assets/audio/explosion.wav" },
     { id: "randomize", src: "assets/audio/randomize.wav" },
-    { id: "laser", src: "assets/images/laser.png" }
+    { id: "lasersound", src: "assets/audio/laser_sound.wav"}
+   
 
 ];
 
@@ -87,13 +87,11 @@ function distance(p1: createjs.Point, p2: createjs.Point): number {
 function checkCollision(collider: objects.GameObject) {
     var p1: createjs.Point = new createjs.Point();
     var p2: createjs.Point = new createjs.Point();
-    var p3: createjs.Point = new createjs.Point();
     p1.x = samus.x;
     p1.y = samus.y;
     p2.x = collider.x;
     p2.y = collider.y;
-    p3.x = laser.x;
-    p3.y = laser.y;
+
     if (distance(p2, p1) < ((samus.height * 0.5) + (collider.height * 0.5))) {
         if (!collider.isColliding) {
             createjs.Sound.play(collider.soundString);
@@ -102,14 +100,11 @@ function checkCollision(collider: objects.GameObject) {
     } else {
         collider.isColliding = false;
     }
-    if (distance(p3, p1) < ((laser.height * 0.5) + (collider.height * 0.5))) {
-        if (!collider.isColliding) {
-            createjs.Sound.play(collider.soundString);
-            collider.isColliding = true;
-        }
-    } else {
-        collider.isColliding = false;
-    }
+}
+
+function fire() {
+    samus.shoot();
+
 }
 
 
@@ -126,10 +121,6 @@ function gameLoop() {
         enemy[cloud].update();
         checkCollision(enemy[cloud]);
     }
-    for (var bullet = 3; bullet > 0; bullet--) {
-        laser[bullet].update();
-        checkCollision(laser[bullet]);
-    }
     checkCollision(ball);
     stats.end();
 }
@@ -140,10 +131,12 @@ function gameLoop() {
 // Our Game Kicks off in here
 function main() {
 
-    //add background to game
+    
 
+    //add background to game
     background = new objects.Background();
     stage.addChild(background);
+    background.addEventListener("click", fire);
     //add island to game
     ball = new objects.Ball();
     stage.addChild(ball);
@@ -156,11 +149,6 @@ function main() {
     for (var cloud = 10; cloud > 0; cloud--) {
         enemy[cloud] = new objects.Enemy();
         stage.addChild(enemy[cloud]);
-    }
-    //add lasers to the game
-    for (var bullet = 10; bullet > 0; bullet--) {
-        laser[bullet] = new objects.Laser();
-        stage.addChild(laser[bullet]);
     }
     setupStats();
 }
