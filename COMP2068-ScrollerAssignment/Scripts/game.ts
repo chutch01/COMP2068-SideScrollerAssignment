@@ -4,6 +4,7 @@
 /// <reference path="typings/soundjs/soundjs.d.ts" />
 /// <reference path="typings/preloadjs/preloadjs.d.ts" />
 /// <reference path="objects/samus.ts" />
+/// <reference path="objects/laser.ts" />
 /// <reference path="objects/ball.ts" />
 /// <reference path="objects/gameobject.ts" />
 /// <reference path="objects/background.ts" />
@@ -26,6 +27,7 @@ var samus: objects.Samus;
 var ball: objects.Ball;
 var background: objects.Background;
 var enemy: objects.Enemy[] = [];
+var laser: objects.Laser[] = [];
 
 //game variables
 
@@ -85,11 +87,22 @@ function distance(p1: createjs.Point, p2: createjs.Point): number {
 function checkCollision(collider: objects.GameObject) {
     var p1: createjs.Point = new createjs.Point();
     var p2: createjs.Point = new createjs.Point();
+    var p3: createjs.Point = new createjs.Point();
     p1.x = samus.x;
     p1.y = samus.y;
     p2.x = collider.x;
     p2.y = collider.y;
+    p3.x = laser.x;
+    p3.y = laser.y;
     if (distance(p2, p1) < ((samus.height * 0.5) + (collider.height * 0.5))) {
+        if (!collider.isColliding) {
+            createjs.Sound.play(collider.soundString);
+            collider.isColliding = true;
+        }
+    } else {
+        collider.isColliding = false;
+    }
+    if (distance(p3, p1) < ((laser.height * 0.5) + (collider.height * 0.5))) {
         if (!collider.isColliding) {
             createjs.Sound.play(collider.soundString);
             collider.isColliding = true;
@@ -107,10 +120,15 @@ function gameLoop() {
     background.update();
     samus.update();
     ball.update();
+    
 
-    for (var cloud = 3; cloud > 0; cloud--) {
+    for (var cloud = 10; cloud > 0; cloud--) {
         enemy[cloud].update();
         checkCollision(enemy[cloud]);
+    }
+    for (var bullet = 3; bullet > 0; bullet--) {
+        laser[bullet].update();
+        checkCollision(laser[bullet]);
     }
     checkCollision(ball);
     stats.end();
@@ -135,9 +153,14 @@ function main() {
     stage.addChild(samus);
 
     //add clouds to game
-    for (var cloud = 3; cloud > 0; cloud--) {
+    for (var cloud = 10; cloud > 0; cloud--) {
         enemy[cloud] = new objects.Enemy();
         stage.addChild(enemy[cloud]);
+    }
+    //add lasers to the game
+    for (var bullet = 10; bullet > 0; bullet--) {
+        laser[bullet] = new objects.Laser();
+        stage.addChild(laser[bullet]);
     }
     setupStats();
 }
