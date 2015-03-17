@@ -1,30 +1,29 @@
 ﻿module objects {
-    export class Cloud extends objects.GameObject {
+    export class Enemy extends objects.GameObject {
 
   
 
         //constructor ++++++++++++++++++++++++++++
         constructor() {
-            super("cloud");
+            super("enemy");
 
             this.soundString = "thunder";
 
-            //set island to start at random x
+            //set cloud to start at random x
             this._reset();
-
+            
         }
         //private methods++++++++++++++++++++++++++
         private _reset() {
-            this.y = Math.floor(Math.random() * 640);
-            this.x = -this.height;
-            this._dx = Math.floor(Math.random() * 5) + 5;
-            this._dy = Math.floor(Math.random() * 4) - 2;
+            this.y = Math.floor(Math.random() * 480);
+            this.x = Math.floor(Math.random() * 480) + 680;
+            this._dx = -5;
+            this._dy = 0;
             
         }
         private _checkbounds() {
-            if (this.x > 480 + this.height) {
+            if (this.x <= 0 - this.width) {
                 this._reset();
-
             }
         }
 

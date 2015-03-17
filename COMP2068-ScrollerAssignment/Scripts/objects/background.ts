@@ -1,5 +1,5 @@
 ﻿module objects {
-    export class Ocean extends createjs.Bitmap {
+    export class Background extends createjs.Bitmap {
 
         //public variables
         public width;
@@ -11,7 +11,7 @@
 
         //constructor ++++++++++++++++++++++++++++
         constructor() {
-            super(assetLoader.getResult("ocean"));
+            super(assetLoader.getResult("background"));
 
             this.width = this.getBounds().width;
             this.height = this.getBounds().height;
@@ -26,10 +26,10 @@
         //private methods++++++++++++++++++++++++++
         private _reset() {
             this.y = 0;
-            this.x = 0;
+            this.x = -10;
         }
         private _checkbounds() {
-            if (this.x <=-135) {
+            if (this.x <=-127) {
                 this._reset();
 
             }

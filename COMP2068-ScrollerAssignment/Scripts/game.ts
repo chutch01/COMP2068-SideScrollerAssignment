@@ -4,9 +4,10 @@
 /// <reference path="typings/soundjs/soundjs.d.ts" />
 /// <reference path="typings/preloadjs/preloadjs.d.ts" />
 /// <reference path="objects/plane.ts" />
-/// <reference path="objects/cloud.ts" />
+/// <reference path="objects/gameobject.ts" />
+/// <reference path="objects/gameobject.ts" />
 /// <reference path="objects/island.ts" />
-/// <reference path="objects/ocean.ts" />
+/// <reference path="objects/background.ts" />
 /// <reference path="typings/stats/stats.d.ts" />
 /// <reference path="objects/gameobject.ts" />
 
@@ -23,8 +24,8 @@ var assetLoader: createjs.LoadQueue;
 //game objects
 var plane: objects.Plane;
 var island: objects.Island;
-var ocean: objects.Ocean;
-var clouds: objects.Cloud[] = [];
+var background: objects.Background;
+var enemy: objects.Enemy[] = [];
 
 //game variables
 
@@ -32,9 +33,9 @@ var clouds: objects.Cloud[] = [];
 
 // asset manifest - array of asset objects
 var manifest = [
-    { id: "cloud", src: "assets/images/cloud.png" },
+    { id: "enemy", src: "assets/images/enemy.png" },
     { id: "island", src: "assets/images/island.png" },
-    { id: "ocean", src: "assets/images/hallway.png" },
+    { id: "background", src: "assets/images/hallway.png" },
     { id: "plane", src: "assets/images/plane.png" },
     { id: "engine", src: "assets/audio/engine.ogg" },
     { id: "thunder", src: "assets/audio/thunder.ogg" },
@@ -99,13 +100,13 @@ function checkCollision(collider: objects.GameObject) {
 function gameLoop() {
     stats.begin();//begin metering
     stage.update(); // Refreshes our stage
-    ocean.update();
+    background.update();
     plane.update();
     island.update();
 
     for (var cloud = 3; cloud > 0; cloud--) {
-        clouds[cloud].update();
-        checkCollision(clouds[cloud]);
+        enemy[cloud].update();
+        checkCollision(enemy[cloud]);
     }
     checkCollision(island);
     stats.end();
@@ -117,10 +118,10 @@ function gameLoop() {
 // Our Game Kicks off in here
 function main() {
 
-    //add ocean to game
+    //add background to game
 
-    ocean = new objects.Ocean();
-    stage.addChild(ocean);
+    background = new objects.Background();
+    stage.addChild(background);
     //add island to game
     island = new objects.Island();
     stage.addChild(island);
@@ -131,8 +132,8 @@ function main() {
 
     //add clouds to game
     for (var cloud = 3; cloud > 0; cloud--) {
-        clouds[cloud] = new objects.Cloud();
-        stage.addChild(clouds[cloud]);
+        enemy[cloud] = new objects.Enemy();
+        stage.addChild(enemy[cloud]);
     }
     setupStats();
 }

@@ -16,11 +16,13 @@
         }
         //private methods++++++++++++++++++++++++++
         private _reset() {
-            this.x = Math.floor(Math.random() * 640);
-            this.y = -this.height;
+            this.y = Math.floor(Math.random() * 480);
+            this.x = this.width + 680;
+            this._dx = -5;
+            this._dy = 0;
         }
         private _checkbounds() {
-            if (this.y > 480 + this.width) {
+            if (this.x <= -480 + this.width) {
                 this._reset();
 
             }
