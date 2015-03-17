@@ -1,29 +1,30 @@
 ﻿module objects {
-    export class Enemy extends objects.GameObject {
+    export class Ball extends objects.GameObject {
 
-  
 
         //constructor ++++++++++++++++++++++++++++
         constructor() {
-            super("enemy");
+            super("ball");
+            this._dx = -5;
 
-            this.soundString = "explosion";
+            this.soundString = "randomize";
 
-            //set cloud to start at random x
+
+            //set island to start at random x
             this._reset();
-            
+
         }
         //private methods++++++++++++++++++++++++++
         private _reset() {
             this.y = Math.floor(Math.random() * 480);
-            this.x = Math.floor(Math.random() * 480) + 680;
+            this.x = this.width + 680;
             this._dx = -5;
             this._dy = 0;
-            
         }
         private _checkbounds() {
-            if (this.x <= 0 - this.width) {
+            if (this.x <= -480 + this.width) {
                 this._reset();
+
             }
         }
 
@@ -31,12 +32,11 @@
 
         //public methods+++++++++++++++++++++++++++
         public update() {
-            //this.y += this._dy;
             this.x += this._dx;
             this._checkbounds();
-
+            
 
 
         }
     }
-} 
+}  

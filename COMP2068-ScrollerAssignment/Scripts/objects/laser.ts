@@ -1,13 +1,13 @@
 ﻿module objects {
-    export class Island extends objects.GameObject {
+    export class Laser extends objects.GameObject {
 
 
         //constructor ++++++++++++++++++++++++++++
         constructor() {
-            super("island");
-            this._dx = -5;
+            super("laser");
+            this._dx = 10;
 
-            this.soundString = "yay";
+            this.soundString = "laser_sound";
 
 
             //set island to start at random x
@@ -16,13 +16,10 @@
         }
         //private methods++++++++++++++++++++++++++
         private _reset() {
-            this.y = Math.floor(Math.random() * 480);
-            this.x = this.width + 680;
-            this._dx = -5;
-            this._dy = 0;
+            this.y = stage.mouseY;
         }
         private _checkbounds() {
-            if (this.x <= -480 + this.width) {
+            if (this.x <= 480 + this.width) {
                 this._reset();
 
             }
@@ -34,7 +31,7 @@
         public update() {
             this.x += this._dx;
             this._checkbounds();
-            
+
 
 
         }

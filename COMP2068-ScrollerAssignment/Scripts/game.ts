@@ -3,13 +3,13 @@
 /// <reference path="typings/tweenjs/tweenjs.d.ts" />
 /// <reference path="typings/soundjs/soundjs.d.ts" />
 /// <reference path="typings/preloadjs/preloadjs.d.ts" />
-/// <reference path="objects/plane.ts" />
+/// <reference path="objects/samus.ts" />
+/// <reference path="objects/ball.ts" />
 /// <reference path="objects/gameobject.ts" />
-/// <reference path="objects/gameobject.ts" />
-/// <reference path="objects/island.ts" />
 /// <reference path="objects/background.ts" />
 /// <reference path="typings/stats/stats.d.ts" />
 /// <reference path="objects/gameobject.ts" />
+
 
 
 
@@ -22,8 +22,8 @@ var stage: createjs.Stage;
 var assetLoader: createjs.LoadQueue;
 
 //game objects
-var plane: objects.Plane;
-var island: objects.Island;
+var samus: objects.Samus;
+var ball: objects.Ball;
 var background: objects.Background;
 var enemy: objects.Enemy[] = [];
 
@@ -34,12 +34,14 @@ var enemy: objects.Enemy[] = [];
 // asset manifest - array of asset objects
 var manifest = [
     { id: "enemy", src: "assets/images/enemy.png" },
-    { id: "island", src: "assets/images/island.png" },
+    { id: "ball", src: "assets/images/ball.png" },
     { id: "background", src: "assets/images/hallway.png" },
-    { id: "plane", src: "assets/images/plane.png" },
-    { id: "engine", src: "assets/audio/engine.ogg" },
-    { id: "thunder", src: "assets/audio/thunder.ogg" },
-    { id: "yay", src: "assets/audio/yay.ogg" }
+    { id: "samus", src: "assets/images/samus.png" },
+    { id: "brinstar", src: "assets/audio/brinstar.mp3" },
+    { id: "explosion", src: "assets/audio/explosion.wav" },
+    { id: "randomize", src: "assets/audio/randomize.wav" },
+    { id: "laser", src: "assets/images/laser.png" }
+
 ];
 
 // Game Objects 
@@ -49,6 +51,7 @@ function preload() {
     assetLoader.installPlugin(createjs.Sound);
     assetLoader.on("complete", init, this); // event handler-triggers when loading done
     assetLoader.loadManifest(manifest); // loading my asset manifest
+    
 }
 
 
@@ -58,6 +61,7 @@ function init() {
     stage.enableMouseOver(20); // Enable mouse events
     createjs.Ticker.setFPS(60); // 60 frames per second
     createjs.Ticker.addEventListener("tick", gameLoop);
+    createjs.Sound.play("brinstar", { loop: -1 });
 
     main();
 }
@@ -81,11 +85,11 @@ function distance(p1: createjs.Point, p2: createjs.Point): number {
 function checkCollision(collider: objects.GameObject) {
     var p1: createjs.Point = new createjs.Point();
     var p2: createjs.Point = new createjs.Point();
-    p1.x = plane.x;
-    p1.y = plane.y;
+    p1.x = samus.x;
+    p1.y = samus.y;
     p2.x = collider.x;
     p2.y = collider.y;
-    if (distance(p2, p1) < ((plane.height * 0.5) + (collider.height * 0.5))) {
+    if (distance(p2, p1) < ((samus.height * 0.5) + (collider.height * 0.5))) {
         if (!collider.isColliding) {
             createjs.Sound.play(collider.soundString);
             collider.isColliding = true;
@@ -101,14 +105,14 @@ function gameLoop() {
     stats.begin();//begin metering
     stage.update(); // Refreshes our stage
     background.update();
-    plane.update();
-    island.update();
+    samus.update();
+    ball.update();
 
     for (var cloud = 3; cloud > 0; cloud--) {
         enemy[cloud].update();
         checkCollision(enemy[cloud]);
     }
-    checkCollision(island);
+    checkCollision(ball);
     stats.end();
 }
 
@@ -123,12 +127,12 @@ function main() {
     background = new objects.Background();
     stage.addChild(background);
     //add island to game
-    island = new objects.Island();
-    stage.addChild(island);
+    ball = new objects.Ball();
+    stage.addChild(ball);
 
     //add place to game
-    plane = new objects.Plane();
-    stage.addChild(plane);
+    samus = new objects.Samus();
+    stage.addChild(samus);
 
     //add clouds to game
     for (var cloud = 3; cloud > 0; cloud--) {

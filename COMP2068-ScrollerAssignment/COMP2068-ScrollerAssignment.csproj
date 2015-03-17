@@ -59,12 +59,15 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="assets\audio\engine.ogg" />
-    <Content Include="assets\audio\thunder.ogg" />
-    <Content Include="assets\audio\yay.ogg" />
+    <Content Include="assets\audio\brinstar.mp3" />
+    <Content Include="assets\audio\explosion.wav" />
+    <Content Include="assets\audio\laser_sound.wav" />
+    <Content Include="assets\audio\randomize.wav" />
     <Content Include="assets\images\ball.png" />
     <Content Include="assets\images\enemy.png" />
     <Content Include="assets\images\hallway.png" />
+    <Content Include="assets\images\laser.png" />
+    <Content Include="assets\images\samus.png" />
     <Content Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -74,11 +77,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="assets\images\1945.bmp" />
-    <Content Include="assets\images\island.png" />
-    <Content Include="assets\images\ocean.gif" />
-    <Content Include="assets\images\plane.png" />
-    <Content Include="assets\images\sideplane.gif" />
     <Content Include="css\game.css" />
     <Content Include="index.html" />
     <Content Include="Scripts\lib\easeljs-0.8.0.min.js" />
@@ -96,9 +94,10 @@
     <TypeScriptCompile Include="Scripts\game.ts" />
     <TypeScriptCompile Include="Scripts\objects\enemy.ts" />
     <TypeScriptCompile Include="Scripts\objects\gameobject.ts" />
-    <TypeScriptCompile Include="Scripts\objects\island.ts" />
+    <TypeScriptCompile Include="Scripts\objects\ball.ts" />
     <TypeScriptCompile Include="Scripts\objects\background.ts" />
-    <TypeScriptCompile Include="Scripts\objects\plane.ts" />
+    <TypeScriptCompile Include="Scripts\objects\laser.ts" />
+    <TypeScriptCompile Include="Scripts\objects\samus.ts" />
     <TypeScriptCompile Include="Scripts\typings\createjs-lib\createjs-lib.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\easeljs\easeljs.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\preloadjs\preloadjs.d.ts" />
