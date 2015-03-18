@@ -86,7 +86,7 @@ function distance(p1: createjs.Point, p2: createjs.Point): number {
 }
 
 
-function checkCollision(collider1: objects.GameObject, collider2: objects.GameObject) {
+function checkCollision(collider1: objects.GameObject, hit1: boolean, collider2: objects.GameObject, hit2: boolean) {
     var p1: createjs.Point = new createjs.Point();
     var p2: createjs.Point = new createjs.Point();
     p1.x = collider1.x;
@@ -95,13 +95,22 @@ function checkCollision(collider1: objects.GameObject, collider2: objects.GameOb
     p2.y = collider2.y;
 
     if (distance(p2, p1) < ((collider1.height * 0.5) + (collider2.height * 0.5))) {
-        if (!collider2.isColliding) {
+        if (!collider2.isColliding && !collider1.isColliding) {
             createjs.Sound.play(collider2.soundString);
             collider2.isColliding = true;
+            collider1.isColliding = true;
+            if (hit1) {
+                collider1.hit();
+            }
+            if (hit2) {
+                collider2.hit();
+            }
         }
     } else {
         collider2.isColliding = false;
+        collider1.isColliding = false;
     }
+    
 }
 function fire() {
     samus.shoot();
@@ -115,19 +124,21 @@ function gameLoop() {
     background.update();
     samus.update();
     ball.update();
-    
+    checkCollision(samus, false, ball, true);
 
     for (var cloud = 10; cloud > 0; cloud--) {
         enemy[cloud].update();
-        checkCollision(enemy[cloud]);
+        checkCollision(samus, true, enemy[cloud], false);
     }
     console.log(totalLasers);
     for (var laser = totalLasers - 1; laser >= 0; laser--) {
         lasers[laser].update();
-        checkCollision(lasers[laser]);
+        //checkCollision(lasers[laser], false, enemy[cloud], true);     
     }
-    checkCollision(ball);
-    checkCollision(samus);
+    
+    
+    
+    
     stats.end();
     
 }

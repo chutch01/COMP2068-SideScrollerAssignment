@@ -4,7 +4,7 @@
  */
 
 module objects {
-    export class Samus extends createjs.Bitmap {
+    export class Samus extends objects.GameObject {
         //private methods
         private _lifePoints: number;
         //public methods
@@ -15,7 +15,7 @@ module objects {
 
         //constructor ++++++++++++++++++++++++++++
         constructor() {
-            super(assetLoader.getResult("samus"));
+            super("samus");
             this.width = this.getBounds().width;
             this.height = this.getBounds().height;
 
@@ -44,6 +44,7 @@ module objects {
         }
         public hit() {
             this._lifePoints--;
+            this.soundString = "explosion";
         }
 
         public update() {

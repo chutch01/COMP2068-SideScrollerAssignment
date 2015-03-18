@@ -38,6 +38,8 @@
 
         public hit() {
             stage.removeChild(this);
+            this._reset();
+            stage.addChild(this);
         }
     }
 } 
