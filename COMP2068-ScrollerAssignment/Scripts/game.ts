@@ -31,6 +31,9 @@ var lasers: objects.Laser[] = [];
 
 //game variables
 var totalLasers = 0;
+var points = 0;
+var startButton;
+var instructionsButton;
 
 
 // asset manifest - array of asset objects
@@ -43,7 +46,9 @@ var manifest = [
     { id: "brinstar", src: "assets/audio/brinstar.mp3" },
     { id: "explosion", src: "assets/audio/explosion.wav" },
     { id: "randomize", src: "assets/audio/randomize.wav" },
-    { id: "lasersound", src: "assets/audio/laser_sound.wav"}
+    { id: "lasersound", src: "assets/audio/laser_sound.wav" },
+    { id: "enemyexplosion", src: "assets/audio/enemy_explosion.wav" }
+
    
 
 ];
@@ -112,6 +117,7 @@ function checkCollision(collider1: objects.GameObject, hit1: boolean, collider2:
     }
     
 }
+//reference for the on click attached to the background. setting the "on click" directly to samus.shoot causes an error
 function fire() {
     samus.shoot();
 }
@@ -126,19 +132,21 @@ function gameLoop() {
     ball.update();
     checkCollision(samus, false, ball, true);
 
-    for (var cloud = 10; cloud > 0; cloud--) {
-        enemy[cloud].update();
-        checkCollision(samus, true, enemy[cloud], false);
-    }
-    console.log(totalLasers);
+   // console.log(totalLasers);
     for (var laser = totalLasers - 1; laser >= 0; laser--) {
         lasers[laser].update();
-        //checkCollision(lasers[laser], false, enemy[cloud], true);     
     }
-    
-    
-    
-    
+
+    for (var cloud = 10; cloud > 0; cloud--) {
+        enemy[cloud].update();
+        checkCollision(samus, true, enemy[cloud], true);
+        for (var laser = totalLasers - 1; laser >= 0; laser--) {
+            checkCollision(enemy[cloud], true, lasers[laser], true);
+           
+        }
+    }
+
+
     stats.end();
     
 }

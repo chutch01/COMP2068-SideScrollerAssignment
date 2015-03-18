@@ -37,9 +37,12 @@
         }
 
         public hit() {
+            console.log("enemy destroyed");
+            
             stage.removeChild(this);
             this._reset();
             stage.addChild(this);
+
         }
     }
 } 

@@ -31,9 +31,12 @@ module objects {
              
         }
         public hit() {
+            console.log("laser exploded");
+            createjs.Sound.play("enemyexplosion");
             totalLasers--; //decrease the number of lasers in game
             lasers.splice(lasers.indexOf(this), 1);
             stage.removeChild(this);
+            
         }
 
     }

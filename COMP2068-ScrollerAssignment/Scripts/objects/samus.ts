@@ -36,15 +36,17 @@ module objects {
             lasers[totalLasers] = new objects.Laser(this.x, this.y);
             stage.addChild(lasers[totalLasers]);
             totalLasers++;
-
+            
             
             createjs.Sound.play("lasersound");
            
 
         }
         public hit() {
+            console.log("samus took damage");
             this._lifePoints--;
             this.soundString = "explosion";
+            
         }
 
         public update() {

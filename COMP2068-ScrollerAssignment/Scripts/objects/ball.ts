@@ -36,6 +36,7 @@
             this._checkbounds();
         }
         public hit() {
+            console.log("points added");
             stage.removeChild(this);
             this._reset();
             stage.addChild(this);
