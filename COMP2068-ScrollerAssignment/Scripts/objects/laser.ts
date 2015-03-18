@@ -22,15 +22,17 @@ module objects {
         public update() {
 
             this.x += 5; 
-            if (!background.addEventListener("click", fire)) {
-                stage.removeChild(this);
+            if (this.x > 680) {
+                totalLasers--;
+                lasers.splice(lasers.indexOf(this), 1);//remove a laser from the array
                 
-            } 
-            if (this.x > 500) {
-                stage.removeChild(this);
-            }     
+                    stage.removeChild(this);
+                }
+             
         }
         public hit() {
+            totalLasers--; //decrease the number of lasers in game
+            lasers.splice(lasers.indexOf(this), 1);
             stage.removeChild(this);
         }
 

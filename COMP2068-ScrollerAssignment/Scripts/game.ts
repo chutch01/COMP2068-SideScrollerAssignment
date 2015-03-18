@@ -26,7 +26,8 @@ var samus: objects.Samus;
 var ball: objects.Ball;
 var background: objects.Background;
 var enemy: objects.Enemy[] = [];
-var laser: objects.Laser;
+var lasers: objects.Laser[] = [];
+var totalLasers;
 
 //game variables
 
@@ -103,10 +104,6 @@ function checkCollision(collider: objects.GameObject) {
     }
 }
 
-function fire() {
-    samus.shoot();
-
-}
 
 
 
@@ -116,16 +113,19 @@ function gameLoop() {
     background.update();
     samus.update();
     ball.update();
-    samus.laser.update();
     
 
     for (var cloud = 10; cloud > 0; cloud--) {
         enemy[cloud].update();
         checkCollision(enemy[cloud]);
     }
+    for (var laser = totalLasers - 1; laser < 0; laser--) {
+        lasers[laser].update();
+        checkCollision(lasers[laser]);
+    }
     checkCollision(ball);
     stats.end();
-    laser.update();
+    
 }
 
 
@@ -139,7 +139,7 @@ function main() {
     //add background to game
     background = new objects.Background();
     stage.addChild(background);
-    background.addEventListener("click", fire);
+    background.addEventListener("click", samus.shoot);
     //add island to game
     ball = new objects.Ball();
     stage.addChild(ball);
@@ -152,6 +152,11 @@ function main() {
     for (var cloud = 10; cloud > 0; cloud--) {
         enemy[cloud] = new objects.Enemy();
         stage.addChild(enemy[cloud]);
+    }
+    //add laser to game
+    for (var laser = totalLasers - 1; laser >= 0; laser--) {
+        lasers[laser] = new objects.Laser(samus.x, samus.y);
+        stage.addChild(lasers[laser]);
     }
     setupStats();
 }
