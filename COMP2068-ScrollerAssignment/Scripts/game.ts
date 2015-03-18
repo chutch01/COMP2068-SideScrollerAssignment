@@ -26,6 +26,7 @@ var samus: objects.Samus;
 var ball: objects.Ball;
 var background: objects.Background;
 var enemy: objects.Enemy[] = [];
+var laser: objects.Laser;
 
 //game variables
 
@@ -115,6 +116,7 @@ function gameLoop() {
     background.update();
     samus.update();
     ball.update();
+    samus.laser.update();
     
 
     for (var cloud = 10; cloud > 0; cloud--) {
@@ -123,6 +125,7 @@ function gameLoop() {
     }
     checkCollision(ball);
     stats.end();
+    laser.update();
 }
 
 

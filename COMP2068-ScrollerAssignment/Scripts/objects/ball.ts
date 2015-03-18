@@ -34,9 +34,9 @@
         public update() {
             this.x += this._dx;
             this._checkbounds();
-            
-
-
+        }
+        public hit() {
+            stage.removeChild(this);
         }
     }
 }  

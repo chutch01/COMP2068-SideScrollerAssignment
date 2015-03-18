@@ -10,22 +10,29 @@ module objects {
             super("laser");
             this.x = x;
             this.y = y;
-            this._dx = 7;
-
+            
+            
             this.soundString = "laser_sound"; 
+         
+            
 
         }
 
         //public methods+++++++++++++++++++++++++++
         public update() {
 
-            if (this.x = 680 + this.width) {
+            this.x += 5; 
+            if (!background.addEventListener("click", fire)) {
                 stage.removeChild(this);
-            }
-            this.x += this._dx;
+                
+            } 
+            if (this.x > 500) {
+                stage.removeChild(this);
+            }     
         }
         public hit() {
             stage.removeChild(this);
         }
+
     }
 }  

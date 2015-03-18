@@ -33,10 +33,11 @@
         public update() {
             //this.y += this._dy;
             this.x += this._dx;
-            this._checkbounds();
+            this._checkbounds()
+        }
 
-
-
+        public hit() {
+            stage.removeChild(this);
         }
     }
 } 

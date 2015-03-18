@@ -36,9 +36,10 @@ module objects {
 
             stage.addChild(this.laser);
             createjs.Sound.play("lasersound");
+            
 
         }
-        public damage() {
+        public hit() {
             this._lifePoints--;
         }
 
