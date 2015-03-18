@@ -64,8 +64,10 @@
     <Content Include="assets\audio\explosion.wav" />
     <Content Include="assets\audio\laser_sound.wav" />
     <Content Include="assets\audio\randomize.wav" />
+    <Content Include="assets\audio\title.mp3" />
     <Content Include="assets\images\ball.png" />
     <Content Include="assets\images\enemy.png" />
+    <Content Include="assets\images\gameoverScreen.png" />
     <Content Include="assets\images\hallway.png" />
     <Content Include="assets\images\howtoButton.png" />
     <Content Include="assets\images\howtoScreen.png" />
@@ -103,6 +105,7 @@
     <TypeScriptCompile Include="Scripts\objects\background.ts" />
     <TypeScriptCompile Include="Scripts\objects\laser.ts" />
     <TypeScriptCompile Include="Scripts\objects\samus.ts" />
+    <TypeScriptCompile Include="Scripts\states\gameOver.ts" />
     <TypeScriptCompile Include="Scripts\states\instructions.ts" />
     <TypeScriptCompile Include="Scripts\states\play.ts" />
     <TypeScriptCompile Include="Scripts\states\start.ts" />

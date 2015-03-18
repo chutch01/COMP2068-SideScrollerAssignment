@@ -6,7 +6,7 @@
 module objects {
     export class Samus extends objects.GameObject {
         //private methods
-        private _lifePoints: number;
+        public lifePoints: number;
         //public methods
         public height: number;
         public width: number;
@@ -23,7 +23,7 @@ module objects {
             this.regY = this.getBounds().height * 0.5;
 
             this.x = 50;
-            this._lifePoints = 5;
+            this.lifePoints = 5;
         }
         //public methods+++++++++++++++++++++++++++
         /*
@@ -44,8 +44,9 @@ module objects {
         }
         public hit() {
             console.log("samus took damage");
-            this._lifePoints--;
+            this.lifePoints--;
             this.soundString = "explosion";
+            score -= 50;
             
         }
 

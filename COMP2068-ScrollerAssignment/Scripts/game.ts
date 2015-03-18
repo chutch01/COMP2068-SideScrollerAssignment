@@ -21,6 +21,14 @@ var canvas;
 var stage: createjs.Stage;
 var assetLoader: createjs.LoadQueue;
 
+//interactionable objects
+var startBackground: createjs.Bitmap;
+var gameoverBackground: createjs.Bitmap;
+var howtoButton: createjs.Bitmap;
+var howtoScreen: createjs.Bitmap;
+var playButton: createjs.Bitmap;
+var playScreen: createjs.Bitmap;
+
 //game objects
 var samus: objects.Samus;
 var ball: objects.Ball;
@@ -28,10 +36,13 @@ var background: objects.Background;
 var enemy:  objects.Enemy[] = [];
 var lasers: objects.Laser[] = [];
 
+//game text
+var lifeTextBox: createjs.Text;
+var scoreTextBox: createjs.Text;
 
 //game variables
 var totalLasers = 0;
-var points = 0;
+var score = 0;
 var startButton;
 var instructionsButton;
 
@@ -146,17 +157,31 @@ function gameLoop() {
         }
     }
 
-
+    lifeTextBox.text = samus.lifePoints.toString();
+    scoreTextBox.text = score.toString();
     stats.end();
-    
+      
 }
 
 
+function createUI(): void{
+    //life text box
+    lifeTextBox = new createjs.Text(samus.lifePoints.toString(), "20px Impact", "#FFFF00");
+    lifeTextBox.x = 0;
+    lifeTextBox.y = 0;
+    stage.addChild(lifeTextBox);
+    //score text box
+    scoreTextBox = new createjs.Text(score.toString(), "20px Impact", "#FFFF00");
+    scoreTextBox.x = 300;
+    scoreTextBox.y = 0;
+    stage.addChild(scoreTextBox);
+}
 
 
 // Our Game Kicks off in here
 function main() {
 
+    
     
 
     //add background to game
@@ -181,5 +206,6 @@ function main() {
         lasers[laser] = new objects.Laser(samus.x, samus.y);
         stage.addChild(lasers[laser]);
     }
+    createUI();
     setupStats();
 }

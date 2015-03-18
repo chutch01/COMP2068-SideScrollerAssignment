@@ -1,12 +1,11 @@
 ﻿module objects {
     export class Enemy extends objects.GameObject {
 
-  
 
         //constructor ++++++++++++++++++++++++++++
         constructor() {
             super("enemy");
-
+            
             this.soundString = "explosion";
 
             //set cloud to start at random x
@@ -38,7 +37,7 @@
 
         public hit() {
             console.log("enemy destroyed");
-            
+            score += 50;
             stage.removeChild(this);
             this._reset();
             stage.addChild(this);
