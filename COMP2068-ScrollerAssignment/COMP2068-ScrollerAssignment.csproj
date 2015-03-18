@@ -67,7 +67,11 @@
     <Content Include="assets\images\ball.png" />
     <Content Include="assets\images\enemy.png" />
     <Content Include="assets\images\hallway.png" />
+    <Content Include="assets\images\howtoButton.png" />
+    <Content Include="assets\images\howtoScreen.png" />
     <Content Include="assets\images\laser.png" />
+    <Content Include="assets\images\playButton.png" />
+    <Content Include="assets\images\playscreen.png" />
     <Content Include="assets\images\samus.png" />
     <Content Include="packages.config" />
     <None Include="Web.Debug.config">
