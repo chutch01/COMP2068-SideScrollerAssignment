@@ -17,7 +17,7 @@
         private _reset() {
             this.y = Math.floor(Math.random() * 480);
             this.x = Math.floor(Math.random() * 480) + 680;
-            this._dx = -5;
+            this._dx = -6;
             this._dy = 0;
             
         }
