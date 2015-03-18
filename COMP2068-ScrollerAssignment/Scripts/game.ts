@@ -25,12 +25,12 @@ var assetLoader: createjs.LoadQueue;
 var samus: objects.Samus;
 var ball: objects.Ball;
 var background: objects.Background;
-var enemy: objects.Enemy[] = [];
+var enemy:  objects.Enemy[] = [];
 var lasers: objects.Laser[] = [];
-var totalLasers;
+
 
 //game variables
-
+var totalLasers = 0;
 
 
 // asset manifest - array of asset objects
@@ -86,24 +86,26 @@ function distance(p1: createjs.Point, p2: createjs.Point): number {
 }
 
 
-function checkCollision(collider: objects.GameObject) {
+function checkCollision(collider1: objects.GameObject, collider2: objects.GameObject) {
     var p1: createjs.Point = new createjs.Point();
     var p2: createjs.Point = new createjs.Point();
-    p1.x = samus.x;
-    p1.y = samus.y;
-    p2.x = collider.x;
-    p2.y = collider.y;
+    p1.x = collider1.x;
+    p1.y = collider1.y;
+    p2.x = collider2.x;
+    p2.y = collider2.y;
 
-    if (distance(p2, p1) < ((samus.height * 0.5) + (collider.height * 0.5))) {
-        if (!collider.isColliding) {
-            createjs.Sound.play(collider.soundString);
-            collider.isColliding = true;
+    if (distance(p2, p1) < ((collider1.height * 0.5) + (collider2.height * 0.5))) {
+        if (!collider2.isColliding) {
+            createjs.Sound.play(collider2.soundString);
+            collider2.isColliding = true;
         }
     } else {
-        collider.isColliding = false;
+        collider2.isColliding = false;
     }
 }
-
+function fire() {
+    samus.shoot();
+}
 
 
 
@@ -119,11 +121,13 @@ function gameLoop() {
         enemy[cloud].update();
         checkCollision(enemy[cloud]);
     }
-    for (var laser = totalLasers - 1; laser < 0; laser--) {
+    console.log(totalLasers);
+    for (var laser = totalLasers - 1; laser >= 0; laser--) {
         lasers[laser].update();
         checkCollision(lasers[laser]);
     }
     checkCollision(ball);
+    checkCollision(samus);
     stats.end();
     
 }
@@ -139,7 +143,7 @@ function main() {
     //add background to game
     background = new objects.Background();
     stage.addChild(background);
-    background.addEventListener("click", samus.shoot);
+    background.addEventListener("click", fire);
     //add island to game
     ball = new objects.Ball();
     stage.addChild(ball);

@@ -20,13 +20,13 @@ module objects {
 
         //public methods+++++++++++++++++++++++++++
         public update() {
-
             this.x += 5; 
-            if (this.x > 680) {
-                totalLasers--;
-                lasers.splice(lasers.indexOf(this), 1);//remove a laser from the array
+            
+           if (this.x > 680 ) {
                 
-                    stage.removeChild(this);
+               totalLasers--;
+                lasers.splice(lasers.indexOf(this), 1);//remove a laser from the array
+                stage.removeChild(this);
                 }
              
         }

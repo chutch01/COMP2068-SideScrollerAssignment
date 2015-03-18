@@ -32,13 +32,14 @@ module objects {
      
         
         public shoot() {
-            this.laser = new objects.Laser(this.x, this.y);
+           // this.laser = new objects.Laser(this.x, this.y);
             lasers[totalLasers] = new objects.Laser(this.x, this.y);
+            stage.addChild(lasers[totalLasers]);
             totalLasers++;
 
-            stage.addChild(this.laser);
-            createjs.Sound.play("lasersound");
             
+            createjs.Sound.play("lasersound");
+           
 
         }
         public hit() {
