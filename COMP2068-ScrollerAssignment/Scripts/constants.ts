@@ -15,4 +15,7 @@
     export var SCREEN_CENTER_WIDTH: number = SCREEN_WIDTH * 0.5;
     export var SCREEN_CENTER_HEIGHT: number = SCREEN_HEIGHT * 0.5;
     export var OCEAN_RESET_HEIGHT: number = 960;
+    //game constants
+    export var PLAYER_LIVES: number = 5;
+    export var ENEMY_NUM: number = 10;
 }

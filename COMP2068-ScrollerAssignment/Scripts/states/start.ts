@@ -1,12 +1,18 @@
-﻿module states {
-    export function startState() {
+﻿/// <reference path="../constants.ts" />
+/// <reference path="../objects/samus.ts" />
+/// <reference path="../objects/laser.ts" />
+/// <reference path="../objects/ball.ts" />
+/// <reference path="../constants.ts" />
+/// <reference path="../objects/gameobject.ts" />
+/// <reference path="../objects/background.ts" />
+/// <reference path="../objects/enemy.ts" />
+/// <reference path="../objects/scoreboard.ts" />
+/// <reference path="../objects/label.ts" />
+/// <reference path="../objects/button.ts" />
 
-        background.update();
-    }
+module states {
 
-
-
-    export function start() {
+    export class Start {
         stage.removeAllChildren();
         stage.removeAllEventListeners();
 

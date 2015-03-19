@@ -104,6 +104,7 @@
     <TypeScriptCompile Include="Scripts\objects\gameobject.ts" />
     <TypeScriptCompile Include="Scripts\objects\ball.ts" />
     <TypeScriptCompile Include="Scripts\objects\background.ts" />
+    <TypeScriptCompile Include="Scripts\objects\label.ts" />
     <TypeScriptCompile Include="Scripts\objects\laser.ts" />
     <TypeScriptCompile Include="Scripts\objects\samus.ts" />
     <TypeScriptCompile Include="Scripts\constants.ts" />
