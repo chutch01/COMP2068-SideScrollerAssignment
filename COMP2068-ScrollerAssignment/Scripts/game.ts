@@ -37,8 +37,9 @@ var enemy:  objects.Enemy[] = [];
 var lasers: objects.Laser[] = [];
 
 //game state
-var currentState;
-var currentStateFunction;
+var currentState: number;
+var currentStateFunction: any;
+var stateChanged: boolean = false;
 
 //game text
 var lifeTextBox: createjs.Text;
@@ -53,11 +54,19 @@ var instructionsButton;
 
 // asset manifest - array of asset objects
 var manifest = [
+//game object images
     { id: "enemy", src: "assets/images/enemy.png" },
     { id: "ball", src: "assets/images/ball.png" },
     { id: "background", src: "assets/images/hallway.png" },
     { id: "samus", src: "assets/images/samus.png" },
     { id: "laser", src: "assets/images/laser.png" },
+    //state screens and buttons
+    { id: "howtoButton", src: "assets/images/howtoButton.png" },
+    { id: "playButton", src: "assets/images/playButton.png" },
+    { id: "gameoverScreen", src: "assets/images/gameoverScreen.png" },
+    { id: "howtoScreen", src: "assets/images/howtoScreen.png" },
+    { id: "startScreen", src: "assets/images/startScreen.png" },
+    //audio
     { id: "brinstar", src: "assets/audio/brinstar.mp3" },
     { id: "explosion", src: "assets/audio/explosion.wav" },
     { id: "randomize", src: "assets/audio/randomize.wav" },
@@ -85,9 +94,9 @@ function init() {
     stage.enableMouseOver(20); // Enable mouse events
     createjs.Ticker.setFPS(60); // 60 frames per second
     createjs.Ticker.addEventListener("tick", gameLoop);
+    setupStats();
     createjs.Sound.play("brinstar", { loop: -1 });
 
-    main();
 }
 //Utility methods++++++++++++++++++++++++++++++++++++++++++++
 
@@ -141,6 +150,8 @@ function fire() {
 
 function gameLoop() {
     stats.begin();//begin metering
+
+    currentStateFunction.update();
     stage.update(); // Refreshes our stage
     background.update();
     samus.update();
@@ -181,6 +192,8 @@ function createUI(): void{
     stage.addChild(scoreTextBox);
 }
 function changeState(state) {
+
+    stateChanged = false;
     switch (state) {
         case constants.START_STATE:
             // instantiate menu screen
