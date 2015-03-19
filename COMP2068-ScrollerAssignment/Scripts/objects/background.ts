@@ -7,7 +7,7 @@
 
 
         //private variables
-        private _dx = -5;
+        private _dx = 5;
 
         //constructor ++++++++++++++++++++++++++++
         constructor() {
@@ -16,17 +16,13 @@
             this.width = this.getBounds().width;
             this.height = this.getBounds().height;
 
-
-      
-
-            //set island to start at random x
             this._reset();
 
         }
         //private methods++++++++++++++++++++++++++
         private _reset() {
             this.y = 0;
-            this.x = -10;
+            this.x = constants.BACKGROUND_RESET_WIDTH;
         }
         private _checkbounds() {
             if (this.x <=-127) {
@@ -39,10 +35,8 @@
 
         //public methods+++++++++++++++++++++++++++
         public update() {
-            this.x += this._dx;
+            this.x -= this._dx;
             this._checkbounds();
-
-
 
         }
     }

@@ -37,7 +37,6 @@
 
         public hit() {
             console.log("enemy destroyed");
-            score += 50;
             stage.removeChild(this);
             this._reset();
             stage.addChild(this);

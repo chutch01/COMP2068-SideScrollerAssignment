@@ -6,7 +6,6 @@
         constructor() {
             super("ball");
             this._dx = -5;
-            var score = 100;
             this.soundString = "randomize";
 
 
@@ -37,7 +36,7 @@
         }
         public hit() {
             console.log("points added");
-            score += 100;
+
             stage.removeChild(this);
             this._reset();
             stage.addChild(this);

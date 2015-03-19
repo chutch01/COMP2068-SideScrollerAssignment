@@ -11,63 +11,51 @@
 /// <reference path="../objects/button.ts" />
 
 module states {
-
+    //start state
     export class Start {
-        stage.removeAllChildren();
-        stage.removeAllEventListeners();
+        // INSTANCE VARIABLES ++++++++++++++++++++++++++++++++++++++++++++++
+        public game: createjs.Container;
+        public background: objects.Background;
+        public playButton: objects.Button;
 
-        //add the start screen to the game
-        startScreen = new objects.Background();
-        stage.addChild(background);
+        // CONSTRUCTOR ++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        constructor() {
+            // Instantiate Game Container
+            this.game = new createjs.Container();
 
-        startScreen = new createjs.Bitmap("assets/images/startScreen.png");
-        stage.addChild(startScreen);
+            // Add ocean to game
+            this.background = new objects.Background();
+            this.game.addChild(this.background);
 
-        //add a play button to the start screen
-        playButton = new createjs.Bitmap("assets/images/playButton.png");
-        playButton.x = 300;
-        playButton.y = 300;
-        stage.addChild(playButton);
+            var mailPilotLabel: objects.Label = new objects.Label("MAIL PILOT", constants.SCREEN_CENTER_WIDTH, 100);
+            mailPilotLabel.font = "80px Consolas";
+            mailPilotLabel.regX = mailPilotLabel.getMeasuredWidth() * 0.5;
+            mailPilotLabel.regY = mailPilotLabel.getMeasuredHeight() * 0.5;
+            this.game.addChild(mailPilotLabel);
 
-        playButton.addEventListener("click", play)
-        playButton.addEventListener("mouseover", playButtonOver)
-        playButton.addEventListener("mouseout", playButtonOut)
-
-
-        //add howTo button to the start screen
-        howtoButton = new createjs.Bitmap("assets/images/howtoButton.png");
-        howtoButton.addEventListener("click", howto)
-        howtoButton.addEventListener("mouseover", playButtonOver)
-        howtoButton.addEventListener("mouseout", playButtonOut)
-
-    }
+            this.playButton = new objects.Button("playButton", constants.SCREEN_CENTER_WIDTH, 400);
+            this.game.addChild(this.playButton);
+            this.playButton.on("click", this.playButtonClicked, this);
 
 
+            stage.addChild(this.game);
+        } // constructor end
 
-    //button functions+++++++++++++++
-    export function playButtonOver() {
-        playButton.alpha = 0.4;
-        console.log("mouse over play");
-    }
-    export function playButtonOut() {
-        playButton.alpha = 1.0;
-        console.log("mouse out play");
-    }
 
-    export function play() {
-        currentState = constants.PLAY_STATE;
-        changeState(currentState);
-    }
-    export function howtoButtonOver() {
-        howtoButton.alpha = 0.4;
-        console.log("mouse over howto");
-    }
-    export function howtoButtonOut() {
-        howtoButton.alpha = 1.0;
-        console.log("mouse out howto");
-    }
-    export function howto() {
-        currentState = constants.HOW_TO_STATE;
-        changeState(currentState);
+        // PUBLIC METHODS ++++++++++++++++++++++++++++++++++++++++++++++++++++
+        playButtonClicked() {
+            this.game.removeAllChildren();
+            stage.removeChild(this.game);
+            currentState = constants.PLAY_STATE;
+            stateChanged = true;
+        }
+
+        // UPDATE METHOD
+        public update() {
+
+            this.background.update();
+
+        } // update method end
+
     }
 }

@@ -21,7 +21,7 @@ module states {
         public ball: objects.Ball;
         public background: objects.Background;
         public enemy: objects.Enemy[] = [];
-        public lasers: objects.Laser[] = [];
+       
         public scoreboard: objects.ScoreBoard;
         public totalLasers;
 
@@ -32,25 +32,25 @@ module states {
 
             //add background to game
             this.background = new objects.Background();
-            stage.addChild(this.background);
+            this.game.addChild(this.background);
             this.background.addEventListener("click", fire);
             //add ball to game
             this.ball = new objects.Ball();
-            stage.addChild(this.ball);
+            this.game.addChild(this.ball);
 
             //add samus to game
             this.samus = new objects.Samus();
-            stage.addChild(this.samus);
+            this.game.addChild(this.samus);
 
             //add enemy to game
-            for (var cloud = 10; cloud > 0; cloud--) {
+            for (var cloud = constants.ENEMY_NUM; cloud > 0; cloud--) {
                 this.enemy[cloud] = new objects.Enemy();
-                stage.addChild(this.enemy[cloud]);
+                this.game.addChild(this.enemy[cloud]);
             }
             //add laser to game
-            for (var laser = this.totalLasers - 1; laser >= 0; laser--) {
-                this.lasers[laser] = new objects.Laser(this.samus.x, this.samus.y);
-                stage.addChild(this.lasers[laser]);
+            for (var laser = this.samus.totalLasers - 1; laser >= 0; laser--) {
+                this.samus.lasers[laser] = new this.samus.totalLasers(this.samus.x, this.samus.y);
+                this.game.addChild(this.samus.lasers[laser]);
 
 
                 this.scoreboard = new objects.ScoreBoard(this.game);
@@ -59,7 +59,7 @@ module states {
                     this.samus.shoot();
                 }
 
-            }   stage.addChild(this.game);
+            }   this.game.addChild(this.game);
             }//constructor end
             //public methods+++++++++++++++++++++++
             public distance(p1: createjs.Point, p2: createjs.Point): number {
@@ -104,15 +104,15 @@ module states {
             this.checkCollision(this.samus, false, this.ball, true);
 
             // console.log(totalLasers);
-            for (var laser = this.totalLasers - 1; laser >= 0; laser--) {
-                this.lasers[laser].update();
+            for (var laser = this.samus.totalLasers - 1; laser >= 0; laser--) {
+                this.samus.lasers[laser].update();
             }
 
-            for (var cloud = 10; cloud > 0; cloud--) {
+            for (var cloud = constants.ENEMY_NUM; cloud > 0; cloud--) {
                 this.enemy[cloud].update();
                 this.checkCollision(this.samus, true, this.enemy[cloud], true);
                 for (var laser = this.totalLasers - 1; laser >= 0; laser--) {
-                    this.checkCollision(this.enemy[cloud], true, this.lasers[laser], true);
+                    this.checkCollision(this.enemy[cloud], true, this.samus.lasers[laser], true);
 
                 }
             }
@@ -123,8 +123,8 @@ module states {
                 this.game.removeAllChildren();
                 stage.removeAllChildren();
                 finalScore = this.scoreboard.score;
-                if (finalScore > highScore) {
-                    highScore = finalScore;
+                if (finalScore > score) {
+                    score = finalScore;
                 }
                 currentState = constants.GAME_OVER_STATE;
                 stateChanged = true;

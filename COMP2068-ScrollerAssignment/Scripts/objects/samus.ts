@@ -11,6 +11,8 @@ module objects {
         public height: number;
         public width: number;
         public laser: objects.Laser;
+        public lasers: objects.Laser[] = [];
+        public totalLasers;
 
 
         //constructor ++++++++++++++++++++++++++++
@@ -33,9 +35,9 @@ module objects {
         
         public shoot() {
            // this.laser = new objects.Laser(this.x, this.y);
-            lasers[totalLasers] = new objects.Laser(this.x, this.y);
-            stage.addChild(lasers[totalLasers]);
-            totalLasers++;
+            this.lasers[this.totalLasers] = new objects.Laser(this.x, this.y, this);
+            stage.addChild(this.lasers[this.totalLasers]);
+            this.totalLasers++;
             
             
             createjs.Sound.play("lasersound");
@@ -46,7 +48,6 @@ module objects {
             console.log("samus took damage");
             this.lifePoints--;
             this.soundString = "explosion";
-            score -= 50;
             
         }
 

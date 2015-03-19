@@ -6,6 +6,7 @@
         public height: number;
         public isColliding: boolean;
         public soundString: string;
+        public name: string;
 
         //private variables
         protected _dy;
@@ -29,6 +30,7 @@
 
 
         }
+        //this is an empty method that is overridden in the other objects that inherit this class
         public hit() {
         }
         

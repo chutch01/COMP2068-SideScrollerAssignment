@@ -4,6 +4,22 @@
 /// <reference path="typings/soundjs/soundjs.d.ts" />
 /// <reference path="typings/preloadjs/preloadjs.d.ts" />
 
+/// <reference path="constants.ts" />
+/// <reference path="objects/gameobject.ts" />
+/// <reference path="objects/samus.ts" />
+/// <reference path="objects/ball.ts" />
+/// <reference path="objects/enemy.ts" />
+/// <reference path="objects/background.ts" />
+
+/// <reference path="objects/label.ts" />
+/// <reference path="objects/button.ts" />
+/// <reference path="objects/scoreboard.ts" />
+
+/// <reference path="states/gameover.ts" />
+/// <reference path="states/play.ts" />
+/// <reference path="states/start.ts" />
+
+
 //game variables
 var stats: Stats = new Stats();
 var canvas;
@@ -12,13 +28,15 @@ var assetLoader: createjs.LoadQueue;
 
 // Score Variables
 var finalScore: number = 0;
-var highScore: number = 0;
+var score: number = 0;
 
 
 //game objects
-var gameOver: states.GameOver;
+//var gameOver: states.GameOver;
 var play: states.Play;
 var menu: states.Start;
+var gameOver: states.GameOver;
+var howto: states.howto;
 
 //game state variables
 var currentState: number;
@@ -61,6 +79,8 @@ function preload() {
     assetLoader.on("complete", init, this); // event handler-triggers when loading done
     assetLoader.loadManifest(manifest); // loading my asset manifest
     
+    currentState = constants.PLAY_STATE;
+    changeState(currentState);
 }
 
 
@@ -95,7 +115,7 @@ function setupStats() {
 function gameLoop() {
     stats.begin(); // Begin metering
 
-    currentStateFunction.update();
+    //currentStateFunction.update();
 
 
     if (stateChanged) {
@@ -125,11 +145,16 @@ function changeState(state) {
             play = new states.Play();
             currentStateFunction = play;
             break;
-        case constants.GAME_OVER_STATE:
+       case constants.GAME_OVER_STATE:
             // Instantiate Game Over State
             gameOver = new states.GameOver();
             currentStateFunction = gameOver;
             break;
+       case constants.HOW_TO_STATE:
+            howto = new states.howto();
+            currentStateFunction = howto;
+            break;
+
     }
 }
   

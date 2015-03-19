@@ -3,42 +3,36 @@
 /// <reference path="typings/tweenjs/tweenjs.d.ts" />
 /// <reference path="typings/soundjs/soundjs.d.ts" />
 /// <reference path="typings/preloadjs/preloadjs.d.ts" />
-/// <reference path="objects/samus.ts" />
-/// <reference path="objects/laser.ts" />
-/// <reference path="objects/ball.ts" />
+/// <reference path="constants.ts" />
 /// <reference path="objects/gameobject.ts" />
+/// <reference path="objects/samus.ts" />
+/// <reference path="objects/ball.ts" />
+/// <reference path="objects/enemy.ts" />
 /// <reference path="objects/background.ts" />
-/// <reference path="typings/stats/stats.d.ts" />
+/// <reference path="objects/label.ts" />
+/// <reference path="objects/button.ts" />
+/// <reference path="objects/scoreboard.ts" />
+/// <reference path="states/gameover.ts" />
+/// <reference path="states/play.ts" />
+/// <reference path="states/start.ts" />
+//game variables
 var stats = new Stats();
 var canvas;
 var stage;
 var assetLoader;
-//interactionable objects
-var startBackground;
-var gameoverBackground;
-var howtoButton;
-var howtoScreen;
-var playButton;
-var startScreen;
+// Score Variables
+var finalScore = 0;
+var score = 0;
 //game objects
-var samus;
-var ball;
-var background;
-var enemy = [];
-var lasers = [];
-var scoreboard;
-//game state
+//var gameOver: states.GameOver;
+var play;
+var menu;
+var gameOver;
+var howto;
+//game state variables
 var currentState;
 var currentStateFunction;
 var stateChanged = false;
-//game text
-var lifeTextBox;
-var scoreTextBox;
-//game variables
-var totalLasers = 0;
-var score = 0;
-var startButton;
-var instructionsButton;
 // asset manifest - array of asset objects
 var manifest = [
     { id: "enemy", src: "assets/images/enemy.png" },
@@ -63,6 +57,8 @@ function preload() {
     assetLoader.installPlugin(createjs.Sound);
     assetLoader.on("complete", init, this); // event handler-triggers when loading done
     assetLoader.loadManifest(manifest); // loading my asset manifest
+    currentState = constants.PLAY_STATE;
+    changeState(currentState);
 }
 function init() {
     canvas = document.getElementById("canvas");
@@ -82,116 +78,38 @@ function setupStats() {
     document.body.appendChild(stats.domElement);
 }
 //calculate distance between two points
-function distance(p1, p2) {
-    return Math.floor(Math.sqrt(Math.pow((p2.x - p1.x), 2) + Math.pow((p2.y - p1.y), 2)));
-}
-function checkCollision(collider1, hit1, collider2, hit2) {
-    var p1 = new createjs.Point();
-    var p2 = new createjs.Point();
-    p1.x = collider1.x;
-    p1.y = collider1.y;
-    p2.x = collider2.x;
-    p2.y = collider2.y;
-    if (distance(p2, p1) < ((collider1.height * 0.5) + (collider2.height * 0.5))) {
-        if (!collider2.isColliding && !collider1.isColliding) {
-            createjs.Sound.play(collider2.soundString);
-            collider2.isColliding = true;
-            collider1.isColliding = true;
-            if (hit1) {
-                collider1.hit();
-            }
-            if (hit2) {
-                collider2.hit();
-            }
-        }
-    }
-    else {
-        collider2.isColliding = false;
-        collider1.isColliding = false;
-    }
-}
 //reference for the on click attached to the background. setting the "on click" directly to samus.shoot causes an error
-function fire() {
-    samus.shoot();
-}
 function gameLoop() {
-    stats.begin(); //begin metering
-    currentStateFunction.update();
+    stats.begin(); // Begin metering
+    //currentStateFunction.update();
+    if (stateChanged) {
+        changeState(currentState);
+    }
     stage.update(); // Refreshes our stage
-    background.update();
-    samus.update();
-    ball.update();
-    checkCollision(samus, false, ball, true);
-    for (var laser = totalLasers - 1; laser >= 0; laser--) {
-        lasers[laser].update();
-    }
-    for (var cloud = 10; cloud > 0; cloud--) {
-        enemy[cloud].update();
-        checkCollision(samus, true, enemy[cloud], true);
-        for (var laser = totalLasers - 1; laser >= 0; laser--) {
-            checkCollision(enemy[cloud], true, lasers[laser], true);
-        }
-    }
-    lifeTextBox.text = samus.lifePoints.toString();
-    scoreTextBox.text = score.toString();
-    stats.end();
-}
-function createUI() {
-    //life text box
-    lifeTextBox = new createjs.Text(samus.lifePoints.toString(), "20px Impact", "#FFFF00");
-    lifeTextBox.x = 0;
-    lifeTextBox.y = 0;
-    stage.addChild(lifeTextBox);
-    //score text box
-    scoreTextBox = new createjs.Text(score.toString(), "20px Impact", "#FFFF00");
-    scoreTextBox.x = 300;
-    scoreTextBox.y = 0;
-    stage.addChild(scoreTextBox);
+    stats.end(); // End metering
 }
 function changeState(state) {
     stateChanged = false;
     switch (state) {
         case constants.START_STATE:
-            // instantiate menu screen
-            currentStateFunction = states.startState;
-            states.start();
+            // Instantiate Menu State
+            menu = new states.Start();
+            currentStateFunction = menu;
             break;
         case constants.PLAY_STATE:
-            // instantiate play screen
-            currentStateFunction = states.playState;
-            states.play();
+            // Instantiate Play State
+            play = new states.Play();
+            currentStateFunction = play;
             break;
         case constants.GAME_OVER_STATE:
-            currentStateFunction = states.gameOverState;
-            states.gameOver();
+            // Instantiate Game Over State
+            gameOver = new states.GameOver();
+            currentStateFunction = gameOver;
             break;
         case constants.HOW_TO_STATE:
-            currentStateFunction = states.howtoState;
-            states.howto();
+            howto = new states.howto();
+            currentStateFunction = howto;
             break;
     }
-}
-// Our Game Kicks off in here
-function main() {
-    //add background to game
-    background = new objects.Background();
-    stage.addChild(background);
-    background.addEventListener("click", fire);
-    //add island to game
-    ball = new objects.Ball();
-    stage.addChild(ball);
-    //add place to game
-    samus = new objects.Samus();
-    stage.addChild(samus);
-    for (var cloud = 10; cloud > 0; cloud--) {
-        enemy[cloud] = new objects.Enemy();
-        stage.addChild(enemy[cloud]);
-    }
-    for (var laser = totalLasers - 1; laser >= 0; laser--) {
-        lasers[laser] = new objects.Laser(samus.x, samus.y);
-        stage.addChild(lasers[laser]);
-    }
-    createUI();
-    setupStats();
 }
 //# sourceMappingURL=game.js.map
