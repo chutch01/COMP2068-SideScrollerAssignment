@@ -27,7 +27,7 @@ var gameoverBackground: createjs.Bitmap;
 var howtoButton: createjs.Bitmap;
 var howtoScreen: createjs.Bitmap;
 var playButton: createjs.Bitmap;
-var playScreen: createjs.Bitmap;
+var startScreen: createjs.Bitmap;
 
 //game objects
 var samus: objects.Samus;
@@ -35,6 +35,10 @@ var ball: objects.Ball;
 var background: objects.Background;
 var enemy:  objects.Enemy[] = [];
 var lasers: objects.Laser[] = [];
+
+//game state
+var currentState;
+var currentStateFunction;
 
 //game text
 var lifeTextBox: createjs.Text;
@@ -176,36 +180,56 @@ function createUI(): void{
     scoreTextBox.y = 0;
     stage.addChild(scoreTextBox);
 }
-
-
-// Our Game Kicks off in here
-function main() {
-
-    
-    
-
-    //add background to game
-    background = new objects.Background();
-    stage.addChild(background);
-    background.addEventListener("click", fire);
-    //add island to game
-    ball = new objects.Ball();
-    stage.addChild(ball);
-
-    //add place to game
-    samus = new objects.Samus();
-    stage.addChild(samus);
-
-    //add clouds to game
-    for (var cloud = 10; cloud > 0; cloud--) {
-        enemy[cloud] = new objects.Enemy();
-        stage.addChild(enemy[cloud]);
+function changeState(state) {
+    switch (state) {
+        case constants.START_STATE:
+            // instantiate menu screen
+            currentStateFunction = states.startState;
+            states.start();
+            break;
+        case constants.PLAY_STATE:
+            // instantiate play screen
+            currentStateFunction = states.playState;
+            states.play();
+            break;
+        case constants.GAME_OVER_STATE:
+            currentStateFunction = states.gameOverState;
+            states.gameOver();
+            break;
+        case constants.HOW_TO_STATE:
+            currentStateFunction = states.howtoState;
+            states.howto();
+            break;
     }
-    //add laser to game
-    for (var laser = totalLasers - 1; laser >= 0; laser--) {
-        lasers[laser] = new objects.Laser(samus.x, samus.y);
-        stage.addChild(lasers[laser]);
-    }
-    createUI();
-    setupStats();
 }
+    // Our Game Kicks off in here
+    function main() {
+
+    
+    
+
+        //add background to game
+        background = new objects.Background();
+        stage.addChild(background);
+        background.addEventListener("click", fire);
+        //add island to game
+        ball = new objects.Ball();
+        stage.addChild(ball);
+
+        //add place to game
+        samus = new objects.Samus();
+        stage.addChild(samus);
+
+        //add clouds to game
+        for (var cloud = 10; cloud > 0; cloud--) {
+            enemy[cloud] = new objects.Enemy();
+            stage.addChild(enemy[cloud]);
+        }
+        //add laser to game
+        for (var laser = totalLasers - 1; laser >= 0; laser--) {
+            lasers[laser] = new objects.Laser(samus.x, samus.y);
+            stage.addChild(lasers[laser]);
+        }
+        createUI();
+        setupStats();
+    }

@@ -73,7 +73,7 @@
     <Content Include="assets\images\howtoScreen.png" />
     <Content Include="assets\images\laser.png" />
     <Content Include="assets\images\playButton.png" />
-    <Content Include="assets\images\playscreen.png" />
+    <Content Include="assets\images\startScreen.png" />
     <Content Include="assets\images\samus.png" />
     <Content Include="packages.config" />
     <None Include="Web.Debug.config">
@@ -105,8 +105,9 @@
     <TypeScriptCompile Include="Scripts\objects\background.ts" />
     <TypeScriptCompile Include="Scripts\objects\laser.ts" />
     <TypeScriptCompile Include="Scripts\objects\samus.ts" />
+    <TypeScriptCompile Include="Scripts\stateConstants.ts" />
     <TypeScriptCompile Include="Scripts\states\gameOver.ts" />
-    <TypeScriptCompile Include="Scripts\states\instructions.ts" />
+    <TypeScriptCompile Include="Scripts\states\howto.ts" />
     <TypeScriptCompile Include="Scripts\states\play.ts" />
     <TypeScriptCompile Include="Scripts\states\start.ts" />
     <TypeScriptCompile Include="Scripts\typings\createjs-lib\createjs-lib.d.ts" />
