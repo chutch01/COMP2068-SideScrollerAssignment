@@ -28,7 +28,7 @@ var score = 0;
 var play;
 var menu;
 var gameOver;
-var howto;
+var howTo;
 //game state variables
 var currentState;
 var currentStateFunction;
@@ -109,8 +109,9 @@ function changeState(state) {
             currentStateFunction = gameOver;
             break;
         case constants.HOW_TO_STATE:
-            howto = new states.howto();
-            currentStateFunction = howto;
+            //instantiate How To State
+            howTo = new states.HowTo();
+            currentStateFunction = howTo;
             break;
     }
 }

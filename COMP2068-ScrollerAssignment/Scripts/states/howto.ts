@@ -1,6 +1,20 @@
-﻿module states {
+﻿/// <reference path="../constants.ts" />
+/// <reference path="../objects/samus.ts" />
+/// <reference path="../objects/laser.ts" />
+/// <reference path="../objects/ball.ts" />
+/// <reference path="../constants.ts" />
+/// <reference path="../objects/gameobject.ts" />
+/// <reference path="../objects/background.ts" />
+/// <reference path="../objects/enemy.ts" />
+/// <reference path="../objects/scoreboard.ts" />
+/// <reference path="../objects/label.ts" />
+/// <reference path="../objects/button.ts" />
 
-    export class howto {
+
+
+module states {
+
+    export class HowTo {
         // INSTANCE VARIABLES ++++++++++++++++++++++++++++++++++++++++++++++
         public game: createjs.Container;
         public background: objects.Background;
@@ -15,11 +29,11 @@
             this.background = new objects.Background();
             this.game.addChild(this.background);
 
-            var mailPilotLabel: objects.Label = new objects.Label("MAIL PILOT", constants.SCREEN_CENTER_WIDTH, 100);
-            mailPilotLabel.font = "80px Consolas";
-            mailPilotLabel.regX = mailPilotLabel.getMeasuredWidth() * 0.5;
-            mailPilotLabel.regY = mailPilotLabel.getMeasuredHeight() * 0.5;
-            this.game.addChild(mailPilotLabel);
+            var howto: objects.Label = new objects.Label("DODGE THE ENEMIES AND COLLECT THE BALLS", constants.SCREEN_CENTER_WIDTH, 100);
+            howto.font = "80px Consolas";
+            howto.regX = howto.getMeasuredWidth() * 0.5;
+            howto.regY = howto.getMeasuredHeight() * 0.5;
+            this.game.addChild(howto);
 
             this.playButton = new objects.Button("playButton", constants.SCREEN_CENTER_WIDTH, 400);
             this.game.addChild(this.playButton);

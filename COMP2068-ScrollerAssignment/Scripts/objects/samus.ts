@@ -20,7 +20,6 @@ module objects {
             super("samus");
 
             this.x = 50;
-            this.lifePoints = 5;
         }
         //public methods+++++++++++++++++++++++++++
         /*
@@ -29,7 +28,6 @@ module objects {
      
         
         public shoot() {
-           // this.laser = new objects.Laser(this.x, this.y);
             this.lasers[this.totalLasers] = new objects.Laser(this.x, this.y, this);
             stage.addChild(this.lasers[this.totalLasers]);
             this.totalLasers++;
@@ -41,7 +39,8 @@ module objects {
         }
         public hit() {
             console.log("samus took damage");
-            this.lifePoints--;
+            constants.PLAYER_LIVES--;
+            console.log(constants.PLAYER_LIVES);
             this.soundString = "explosion";
             
         }

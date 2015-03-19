@@ -36,7 +36,7 @@ var score: number = 0;
 var play: states.Play;
 var menu: states.Start;
 var gameOver: states.GameOver;
-var howto: states.howto;
+var howTo: states.HowTo;
 
 //game state variables
 var currentState: number;
@@ -125,7 +125,6 @@ function gameLoop() {
     }
 
     stage.update(); // Refreshes our stage
-
     stats.end(); // End metering
 }
 
@@ -153,8 +152,9 @@ function changeState(state) {
             currentStateFunction = gameOver;
             break;
        case constants.HOW_TO_STATE:
-            howto = new states.howto();
-            currentStateFunction = howto;
+            //instantiate How To State
+            howTo = new states.HowTo();
+            currentStateFunction = howTo;
             break;
 
     }

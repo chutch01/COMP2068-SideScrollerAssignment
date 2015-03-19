@@ -60,6 +60,7 @@ module states {
             function fire() {
                 this.samus.shoot();
             }
+
             this.scoreboard = new objects.ScoreBoard(this.game);
             stage.addChild(this.game);
             }//constructor end
