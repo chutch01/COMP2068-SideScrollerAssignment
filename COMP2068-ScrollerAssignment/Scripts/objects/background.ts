@@ -35,7 +35,7 @@
 
         //public methods+++++++++++++++++++++++++++
         public update() {
-            this.x = this._dx;
+            this.x += this._dx;
             this._checkbounds();
 
         }

@@ -21,9 +21,9 @@ module states {
         public ball: objects.Ball;
         public background: objects.Background;
         public enemy: objects.Enemy[] = [];
-       
+        public lasers: objects.Laser[] = [];
         public scoreboard: objects.ScoreBoard;
-        public totalLasers;
+        public totalLasers = 0;
 
         constructor() {
 
@@ -53,13 +53,13 @@ module states {
                 this.samus.lasers[laser] = new this.samus.totalLasers(this.samus.x, this.samus.y);
                 this.game.addChild(this.samus.lasers[laser]);
 
-                function fire() {
-                    this.samus.shoot();
-                }
+                
                 
 
             }
-           
+            function fire() {
+                this.samus.shoot();
+            }
             this.scoreboard = new objects.ScoreBoard(this.game);
             stage.addChild(this.game);
             }//constructor end
