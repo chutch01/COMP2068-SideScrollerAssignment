@@ -25,7 +25,7 @@
             this.x = constants.BACKGROUND_RESET_WIDTH;
         }
         private _checkbounds() {
-            if (this.x <=-127) {
+            if (this.x <=-125) {
                 this._reset();
 
             }
