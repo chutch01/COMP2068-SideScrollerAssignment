@@ -107,6 +107,7 @@
     <TypeScriptCompile Include="Scripts\objects\laser.ts" />
     <TypeScriptCompile Include="Scripts\objects\samus.ts" />
     <TypeScriptCompile Include="Scripts\constants.ts" />
+    <TypeScriptCompile Include="Scripts\objects\scoreboard.ts" />
     <TypeScriptCompile Include="Scripts\states\gameOver.ts" />
     <TypeScriptCompile Include="Scripts\states\howto.ts" />
     <TypeScriptCompile Include="Scripts\states\play.ts" />
