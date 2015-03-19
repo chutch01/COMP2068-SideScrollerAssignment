@@ -68,6 +68,8 @@ function init() {
     createjs.Ticker.addEventListener("tick", gameLoop);
     setupStats();
     createjs.Sound.play("brinstar", { loop: -1 });
+    currentState = constants.START_STATE;
+    changeState(currentState);
 }
 //Utility methods++++++++++++++++++++++++++++++++++++++++++++
 function setupStats() {
@@ -81,7 +83,7 @@ function setupStats() {
 //reference for the on click attached to the background. setting the "on click" directly to samus.shoot causes an error
 function gameLoop() {
     stats.begin(); // Begin metering
-    //currentStateFunction.update();
+    currentStateFunction.update();
     if (stateChanged) {
         changeState(currentState);
     }

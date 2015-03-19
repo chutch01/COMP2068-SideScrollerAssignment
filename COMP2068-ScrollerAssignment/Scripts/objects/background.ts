@@ -7,7 +7,7 @@
 
 
         //private variables
-        private _dx = 5;
+        private _dx = -5;
 
         //constructor ++++++++++++++++++++++++++++
         constructor() {
@@ -22,7 +22,7 @@
         //private methods++++++++++++++++++++++++++
         private _reset() {
             this.y = 0;
-            this.x = constants.BACKGROUND_RESET_WIDTH;
+            this.x = 0;
         }
         private _checkbounds() {
             if (this.x <=-125) {
@@ -35,7 +35,7 @@
 
         //public methods+++++++++++++++++++++++++++
         public update() {
-            this.x -= this._dx;
+            this.x = this._dx;
             this._checkbounds();
 
         }

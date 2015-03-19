@@ -27,7 +27,7 @@ module states {
             this.background = new objects.Background();
             this.game.addChild(this.background);
 
-            var mailPilotLabel: objects.Label = new objects.Label("MAIL PILOT", constants.SCREEN_CENTER_WIDTH, 100);
+            var mailPilotLabel: objects.Label = new objects.Label("METROID FLYER", constants.SCREEN_CENTER_WIDTH, 100);
             mailPilotLabel.font = "80px Consolas";
             mailPilotLabel.regX = mailPilotLabel.getMeasuredWidth() * 0.5;
             mailPilotLabel.regY = mailPilotLabel.getMeasuredHeight() * 0.5;

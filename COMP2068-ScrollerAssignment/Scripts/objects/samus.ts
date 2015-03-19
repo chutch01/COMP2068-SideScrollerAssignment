@@ -18,11 +18,6 @@ module objects {
         //constructor ++++++++++++++++++++++++++++
         constructor() {
             super("samus");
-            this.width = this.getBounds().width;
-            this.height = this.getBounds().height;
-
-            this.regX = this.getBounds().width * 0.5;
-            this.regY = this.getBounds().height * 0.5;
 
             this.x = 50;
             this.lifePoints = 5;

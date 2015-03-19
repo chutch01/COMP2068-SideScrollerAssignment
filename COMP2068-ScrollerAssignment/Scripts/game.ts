@@ -93,6 +93,8 @@ function init() {
     setupStats();
     createjs.Sound.play("brinstar", { loop: -1 });
 
+    currentState = constants.START_STATE;
+    changeState(currentState);
 }
 //Utility methods++++++++++++++++++++++++++++++++++++++++++++
 
@@ -115,7 +117,7 @@ function setupStats() {
 function gameLoop() {
     stats.begin(); // Begin metering
 
-    //currentStateFunction.update();
+    currentStateFunction.update();
 
 
     if (stateChanged) {

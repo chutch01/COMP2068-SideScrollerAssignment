@@ -34,6 +34,7 @@ module states {
             this.background = new objects.Background();
             this.game.addChild(this.background);
             this.background.addEventListener("click", fire);
+
             //add ball to game
             this.ball = new objects.Ball();
             this.game.addChild(this.ball);
@@ -52,17 +53,18 @@ module states {
                 this.samus.lasers[laser] = new this.samus.totalLasers(this.samus.x, this.samus.y);
                 this.game.addChild(this.samus.lasers[laser]);
 
-
-                this.scoreboard = new objects.ScoreBoard(this.game);
-
                 function fire() {
                     this.samus.shoot();
                 }
+                
 
-            }   this.game.addChild(this.game);
+            }
+           
+            this.scoreboard = new objects.ScoreBoard(this.game);
+            stage.addChild(this.game);
             }//constructor end
             //public methods+++++++++++++++++++++++
-            public distance(p1: createjs.Point, p2: createjs.Point): number {
+            distance(p1: createjs.Point, p2: createjs.Point): number {
 
             return Math.floor(Math.sqrt(Math.pow((p2.x - p1.x), 2) + Math.pow((p2.y - p1.y), 2)));
         }//distance end
@@ -94,10 +96,8 @@ module states {
 
         }//end checkCollision
         public update() {
-            stats.begin();//begin metering
-
-            currentStateFunction.update();
-            stage.update(); // Refreshes our stage
+            
+         
             this.background.update();
             this.samus.update();
             this.ball.update();
@@ -129,7 +129,7 @@ module states {
                 currentState = constants.GAME_OVER_STATE;
                 stateChanged = true;
             }
-            stats.end();
+           
 
         }
     }//update method

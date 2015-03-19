@@ -19,8 +19,8 @@
             this.width = this.getBounds().width;
             this.height = this.getBounds().height;
 
-            this.width = this.getBounds().width * 0.5;
-            this.height = this.getBounds().height * 0.5;
+            //this.width = this.getBounds().width * 0.5;
+            //this.height = this.getBounds().height * 0.5;
 
 
             this.regX = this.width * 0.5;
